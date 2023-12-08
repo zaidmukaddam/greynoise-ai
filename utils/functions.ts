@@ -44,7 +44,7 @@ const vpn_list = [
     "LIQUID_VPN",
     "LUNA_VPN",
     "MONSTER_VPN",
-    "MULVAD_VPN",
+    "MULLVAD_VPN",
     "NAMECHEAP_VPN",
     "NORD_VPN",
     "OCTANE_VPN",
@@ -234,7 +234,7 @@ async function get_bot_data(classification: string, useragent: string) {
 }
 
 async function get_vpn_with_classification(classification: string, vpn_service: string) {
-    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20metadata.vpn:true%20metadata.vpn_service:${vpn_service}&size=20`, options)
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20vpn:true%20vpn_service:${vpn_service}&size=8`, options)
     const data = await res.json()
     return data
 }
