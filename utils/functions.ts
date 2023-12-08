@@ -12,7 +12,7 @@ const options = {
 
 const vpn_list = [
     "ANONINE_XPN",
-    "ANONYMOUS_VPN", 
+    "ANONYMOUS_VPN",
     "APROVPN_VPN",
     "ASTRILL_VPN",
     "AZIREVPN_VPN",
@@ -138,7 +138,7 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: [],
         },
     },
-    {   
+    {
         name: "get_category_with_classification",
         description:
             "Get the ip addresses with a specific category and classification",
@@ -174,6 +174,25 @@ export const functions: ChatCompletionCreateParams.Function[] = [
                 },
             },
             required: ["classification", "useragent"],
+        },
+    },
+    {
+        name: "get_vpn_with_classification",
+        description:
+            "Get the vpn data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                classification: {
+                    type: "string",
+                    description: "The classification to get the data from eg. malicious or benign",
+                },
+                vpn_service: {
+                    type: "string",
+                    description: `The vpn service to get the data from eg. ${vpn_list.join(", ")}`,
+                },
+            },
+            required: ["classification", "vpn_service"],
         },
     },
 ];
@@ -214,6 +233,13 @@ async function get_bot_data(classification: string, useragent: string) {
     return data
 }
 
+async function get_vpn_with_classification(classification: string, vpn_service: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20metadata.vpn:true%20metadata.vpn_service:${vpn_service}&size=20`, options)
+    const data = await res.json()
+    return data
+}
+
+
 export async function runFunction(name: string, args: any) {
     switch (name) {
         case "get_ip_data":
@@ -228,6 +254,8 @@ export async function runFunction(name: string, args: any) {
             return get_category_with_classification(args["classification"], args["category"]);
         case "get_bot_data":
             return get_bot_data(args["classification"], args["useragent"]);
+        case "get_vpn_with_classification":
+            return get_vpn_with_classification(args["classification"], args["vpn_service"]);
         default:
             return null;
     }
