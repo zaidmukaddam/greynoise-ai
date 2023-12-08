@@ -214,6 +214,21 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: ["classification", "organisation"],
         },
     },
+    {
+        name: "get_malicious_ports",
+        description:
+            "Get the malicious ports from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                port: {
+                    type: "string",
+                    description: "The port to get the data from eg. 22",
+                },
+            },
+            required: ["port"],
+        },
+    },
 ];
 
 async function get_ip_noise(ip: string) {
@@ -264,6 +279,12 @@ async function get_organisation_with_classification(classification: string, orga
     return data
 }
 
+async function get_malicious_ports(port: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20scan.port:${port}&size=20`, options)
+    const data = await res.json()
+    return data
+}
+
 
 export async function runFunction(name: string, args: any) {
     switch (name) {
@@ -283,6 +304,8 @@ export async function runFunction(name: string, args: any) {
             return get_vpn_with_classification(args["classification"], args["vpn_service"]);
         case "get_organisation_with_classification":
             return get_organisation_with_classification(args["classification"], args["organisation"]);
+        case "get_malicious_ports":
+            return get_malicious_ports(args["port"]);
         default:
             return null;
     }
