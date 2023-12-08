@@ -195,6 +195,25 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: ["classification", "vpn_service"],
         },
     },
+    {
+        name: "get_organisation_with_classification",
+        description:
+            "Get the organisation data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                classification: {
+                    type: "string",
+                    description: "The classification to get the data from eg. malicious or benign",
+                },
+                organisation: {
+                    type: "string",
+                    description: "The organisation to get the data from eg. Google",
+                },
+            },
+            required: ["classification", "organisation"],
+        },
+    },
 ];
 
 async function get_ip_noise(ip: string) {
@@ -239,6 +258,12 @@ async function get_vpn_with_classification(classification: string, vpn_service: 
     return data
 }
 
+async function get_organisation_with_classification(classification: string, organisation: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20organization:${organisation}&size=20`, options)
+    const data = await res.json()
+    return data
+}
+
 
 export async function runFunction(name: string, args: any) {
     switch (name) {
@@ -256,6 +281,8 @@ export async function runFunction(name: string, args: any) {
             return get_bot_data(args["classification"], args["useragent"]);
         case "get_vpn_with_classification":
             return get_vpn_with_classification(args["classification"], args["vpn_service"]);
+        case "get_organisation_with_classification":
+            return get_organisation_with_classification(args["classification"], args["organisation"]);
         default:
             return null;
     }
