@@ -51,7 +51,7 @@ export default async function handler(req: Request) {
         console.log(newMessages)
         return openai.chat.completions.create({
           model: "gpt-4-1106-preview",
-          max_tokens: 500,
+          max_tokens: 800,
           temperature: 0.7,
           messages: [...messages, ...newMessages],
           stream: true,
