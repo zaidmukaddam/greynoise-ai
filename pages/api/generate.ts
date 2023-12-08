@@ -1,7 +1,7 @@
 import OpenAI from "openai"
 import { OpenAIStream, StreamingTextResponse } from "ai"
 import { NextResponse } from "next/server"
-import { functions, runFunction } from './functions'
+import { functions, runFunction } from '@/utils/functions'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
