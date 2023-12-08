@@ -66,7 +66,6 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: [],
         },
     },
-    // metadata.category - Whether the device belongs to a business, isp, hosting, education, or mobile network
     {   
         name: "get_category_with_classification",
         description:
@@ -126,7 +125,7 @@ async function get_malicious_from_country(country: string) {
 }
 
 async function get_mal_tor() {
-    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20metadata.tor:True&size=20`, options)
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20metadata.tor:true&size=20`, options)
     const data = await res.json()
     return data
 }
