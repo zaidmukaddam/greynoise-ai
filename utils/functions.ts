@@ -1,7 +1,5 @@
 import { ChatCompletionCreateParams } from "openai/resources/chat/index";
 
-export const runtime = "edge";
-
 const options = {
     method: 'GET',
     headers: {

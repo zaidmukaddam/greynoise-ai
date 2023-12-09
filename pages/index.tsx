@@ -74,22 +74,22 @@ export default function Home({
   return (
     <>
       <Head>
-        <title>greynoise.ai :: Let AI get info about any IP address.</title>
+        <title>greynoise.ai</title>
         <meta
           name="description"
-          content="Let AI get info about any IP address. Powered by GreyNoise Enterprise API and OpenAI's GPT-4 Turbo x Function Calling."
+          content="GreyNoise.AI is a powerful AI-enhanced tool that delivers insights on IP-address-related activities, distinguishing potential threats from benign internet noise."
         />
         <meta property="og:title" content="greynoise.ai :: Let AI get info about any IP address." />
         <meta
           property="og:description"
-          content="Let AI get info about any IP address. Powered by GreyNoise Enterprise API and OpenAI's GPT-4 Turbo x Function Calling."
+          content="GreyNoise.AI is a powerful AI-enhanced tool that delivers insights on IP-address-related activities, distinguishing potential threats from benign internet noise."
         />
         <meta property="og:image" content="https://greynoiseai.za16.fyi/preview.png" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="greynoise.ai :: Let AI get info about any IP address." />
         <meta
           name="twitter:description"
-          content="Let AI get info about any IP address. Powered by GreyNoise Enterprise API and OpenAI's GPT-4 Turbo x Function Calling."
+          content="GreyNoise.AI is a powerful AI-enhanced tool that delivers insights on IP-address-related activities, distinguishing potential threats from benign internet noise."
         />
         <meta name="twitter:image" content="https://greynoiseai.za16.fyi/preview.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -108,7 +108,7 @@ export default function Home({
             </Link>
           </div>
           <p className="mt-2">
-            greynoise.ai is an AI tool that can get info about any IP address and their malicious activity.
+            greynoise.ai is a powerful AI-enhanced tool that delivers insights on IP-address-related activities, distinguishing potential threats from benign internet noise.
           </p>
         </div>
 
@@ -161,7 +161,7 @@ export default function Home({
             <section>
               <h2 className="mb-2 text-[1rem] md:text-[1.065rem] font-bold uppercase tracking-wider">How does it work?</h2>
               <p className="text-[1rem] md:text-[1.065rem]">
-                <strong>greynoise.ai</strong> is a tool that uses AI to get info about any IP address.
+                <strong>greynoise.ai</strong> is a powerful AI-enhanced tool that delivers insights on IP-address-related activities, distinguishing potential threats from benign internet noise.
                 It uses <a href="https://greynoise.io">Greynoise Enterprise API</a> to get info about the IP address and then uses <a href="https://openai.com/blog/function-calling-and-other-api-updates">OpenAI&apos;s GPT-4 Turbo x Function Calling</a> to generate what you&apos;re looking for.
               </p>
             </section>

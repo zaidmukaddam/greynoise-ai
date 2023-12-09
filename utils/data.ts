@@ -18,7 +18,7 @@ export const EXAMPLES = [
     "Show me all compromised devices that belong to Microsoft",
     "Is any MySQL server port being used for malicious activity? Show me the most critical one.",
     "Search for normal activity in Delhi.",
-    "Search for nginx servers showing malicious activity",
+    "Search for http servers showing malicious activity",
     "Show me malicious activity on Government sites.",
     "Show me /wp-login.php for CVE-2019-11510.",
 ]
