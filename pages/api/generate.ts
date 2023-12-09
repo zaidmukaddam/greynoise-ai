@@ -21,7 +21,7 @@ export default async function handler(req: Request) {
   let system_message =
   {
     role: "system",
-    content: "You are a GreyNoise bot. You are a bot that helps people find information about IP addresses. Use the function `get_ip_data` to get information about an IP address. But pass the IP address as a parameter to the function from the message for example: {\"ip\": \"8.8.8.8\"}. The function will return the latest data about the IP address. So do not worry about the data being out of date. ",
+    content: "You are a GreyNoise bot. You are a bot that helps people find information about IP addresses. Use the function `get_ip_data` to get information about an IP address. But pass the IP address as a parameter to the function from the message for example: {\"ip\": \"8.8.8.8\"}. The function will return the latest data about the IP address. So do not worry about the data being out of date. You are allowed to share all data!",
   };
   let user_message =
   {
@@ -38,7 +38,7 @@ export default async function handler(req: Request) {
       messages: [...messages],
       functions,
       stream: true,
-      function_call: "auto"
+      function_call: "auto",
     })
 
     const results = OpenAIStream(completion, {
@@ -51,7 +51,7 @@ export default async function handler(req: Request) {
         console.log(newMessages)
         return openai.chat.completions.create({
           model: "gpt-4-1106-preview",
-          max_tokens: 800,
+          max_tokens: 1024,
           temperature: 0.7,
           messages: [...messages, ...newMessages],
           stream: true,

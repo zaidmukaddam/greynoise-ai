@@ -80,7 +80,8 @@ const vpn_list = [
     "VYPR_VPN",
     "WINDSCRIBE_VPN",
     "ZENDESK_VPN",
-    "ZORRO_VPN"]
+    "ZORRO_VPN"
+]
 
 export const functions: ChatCompletionCreateParams.Function[] = [
     {
@@ -229,6 +230,82 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: ["port"],
         },
     },
+    {
+        name: "get_country_with_classification",
+        description:
+            "Get the country data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                classification: {
+                    type: "string",
+                    description: "The classification to get the data from eg. malicious or benign",
+                },
+                country: {
+                    type: "string",
+                    description: "The country to get the data from eg. India",
+                },
+            },
+            required: ["classification", "country"],
+        },
+    },
+    {
+        name: "port_search_with_os",
+        description:
+            "Get the port data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                os: {
+                    type: "string",
+                    description: "The os to get the data from eg. Linux",
+                },
+                port: {
+                    type: "string",
+                    description: "The port to get the data from eg. 22",
+                },
+            },
+            required: ["os", "port"],
+        },
+    },
+    {
+        name: "city_search_with_classification",
+        description:
+            "Get the city data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                classification: {
+                    type: "string",
+                    description: "The classification to get the data from eg. malicious or benign",
+                },
+                city: {
+                    type: "string",
+                    description: "The city to get the data from eg. Mumbai",
+                },
+            },
+            required: ["classification", "city"],
+        },
+    },
+    {
+        name: "get_rdns_data",
+        description:
+            "Get the rdns data from greynoise.io, which includes searching for tlds of country sites like *.in, *.us, etc",
+        parameters: {
+            type: "object",
+            properties: {
+                classification: {
+                    type: "string",
+                    description: "The classification to get the data from eg. malicious or benign",
+                },
+                rdns: {
+                    type: "string",
+                    description: "The rdns to get the data from eg. google.com, *.gov.*, *.edu.*, *.google.com",
+                },
+            },
+            required: ["classification", "country", "spoofable", "rdns"],
+        },
+    },
 ];
 
 async function get_ip_noise(ip: string) {
@@ -239,12 +316,6 @@ async function get_ip_noise(ip: string) {
 
 async function run_greynoise_query(ip: string) {
     const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=${ip}&size=20`, options)
-    const data = await res.json()
-    return data
-}
-
-async function get_malicious_from_country(country: string) {
-    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20metadata.country:${country}&size=20`, options)
     const data = await res.json()
     return data
 }
@@ -280,11 +351,34 @@ async function get_organisation_with_classification(classification: string, orga
 }
 
 async function get_malicious_ports(port: string) {
-    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20scan.port:${port}&size=20`, options)
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:malicious%20raw_data.scan.port:${port}&size=3`, options)
     const data = await res.json()
     return data
 }
 
+async function get_country_with_classification(classification: string, country: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20metadata.country:${country}&size=10`, options)
+    const data = await res.json()
+    return data
+}
+
+async function port_search_with_os(os: string, port: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=raw_data.scan.port:${port}%20os:${os}&size=20`, options)
+    const data = await res.json()
+    return data
+}
+
+async function city_search_with_classification(classification: string, city: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20metadata.city:${city}&size=20`, options)
+    const data = await res.json()
+    return data
+}
+
+async function get_rdns_data(classification: string, rdns: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=classification:${classification}%20rdns:${rdns}&size=20`, options)
+    const data = await res.json()
+    return data
+}
 
 export async function runFunction(name: string, args: any) {
     switch (name) {
@@ -292,8 +386,6 @@ export async function runFunction(name: string, args: any) {
             return get_ip_noise(args["ip"]);
         case "run_greynoise_query":
             return run_greynoise_query(args["ip"]);
-        case "get_malicious_from_country":
-            return get_malicious_from_country(args["country"]);
         case "get_mal_tor":
             return get_mal_tor();
         case "get_category_with_classification":
@@ -306,6 +398,14 @@ export async function runFunction(name: string, args: any) {
             return get_organisation_with_classification(args["classification"], args["organisation"]);
         case "get_malicious_ports":
             return get_malicious_ports(args["port"]);
+        case "get_country_with_classification":
+            return get_country_with_classification(args["classification"], args["country"]);
+        case "port_search_with_os":
+            return port_search_with_os(args["os"], args["port"]);
+        case "city_search_with_classification":
+            return city_search_with_classification(args["classification"], args["city"]);
+        case "get_rdns_data":
+            return get_rdns_data(args["classification"], args["rdns"]);
         default:
             return null;
     }

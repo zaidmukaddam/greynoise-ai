@@ -26,3 +26,18 @@ This project uses several dependencies, including:
 - OpenAI
 - React Markdown
 - React Textarea Autosize
+
+## Contributing
+
+The functions are stored in `utils/functions.ts`, the examples are stored in `utils/data.ts`, and the API calls are stored in `pages/api/generate.ts`.
+
+To add new functions, open `utils/functions.ts` and add a new function to the `functions` array. The function should be an object with the following properties:
+
+- `name`: The name of the function
+- `description`: A description of the function
+- `parameters`: An array of objects with the following properties:
+  - `name`: The name of the parameter
+  - `type`: The type of the parameter
+  - `description`: A description of the parameter
+
+To add new examples, open `utils/data.ts` and add a new example to the `examples` array. The example should be simple text.

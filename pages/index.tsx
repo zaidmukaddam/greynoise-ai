@@ -117,7 +117,7 @@ export default function Home({
             <TextareaAutosize
               rows={1}
               maxRows={5}
-              placeholder="Type your IP query here..."
+              placeholder="Type your query here..."
               className="m-0 w-full resize-none border-0 bg-transparent p-0 pr-9 focus:ring-0 focus-visible:ring-0"
               style={{ overflowY: "hidden" }}
               value={input}
@@ -159,8 +159,8 @@ export default function Home({
               </div>
             </section>
             <section>
-              <h2 className="mb-2 text-sm font-bold uppercase tracking-wider">How does it work?</h2>
-              <p>
+              <h2 className="mb-2 text-[1rem] md:text-[1.065rem] font-bold uppercase tracking-wider">How does it work?</h2>
+              <p className="text-[1rem] md:text-[1.065rem]">
                 <strong>greynoise.ai</strong> is a tool that uses AI to get info about any IP address.
                 It uses <a href="https://greynoise.io">Greynoise Enterprise API</a> to get info about the IP address and then uses <a href="https://openai.com/blog/function-calling-and-other-api-updates">OpenAI&apos;s GPT-4 Turbo x Function Calling</a> to generate what you&apos;re looking for.
               </p>
@@ -230,7 +230,7 @@ export default function Home({
           </div>
         )}
 
-        <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center space-x-8 text-xs">
+        <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center space-x-8 text-sm">
           <a href="https://twitter.com/zaidmukaddam" className="hover:underline">
             Made by <strong>@zaidmukaddam</strong>
           </a>
