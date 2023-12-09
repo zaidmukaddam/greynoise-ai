@@ -31,7 +31,11 @@ This project uses several dependencies, including:
 
 The functions are stored in `utils/functions.ts`, the examples are stored in `utils/data.ts`, and the API calls are stored in `pages/api/generate.ts`.
 
-To add new functions, open `utils/functions.ts` and add a new function to the `functions` array. The function should be an object with the following properties:
+To add new functions, open `utils/functions.ts`, do the following:
+
+1. Create a new async function that takes in a string as a parameter and returns a promise.
+2. Add the function to the switch statement in the `runFunction` function.
+3. Then add the function to the `functions` array. The function should have the following properties:
 
 - `name`: The name of the function
 - `description`: A description of the function
