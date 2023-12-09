@@ -231,9 +231,10 @@ export default function Home({
         )}
 
         <footer className="sticky top-[100vh] pt-6 md:pt-10 flex md:justify-center space-x-8 text-sm">
-          <a href="https://twitter.com/zaidmukaddam" className="hover:underline">
-            Made by <strong>@zaidmukaddam</strong>
-          </a>
+          <div>
+            Made by <a href="https://twitter.com/zaidmukaddam" className="hover:underline"> <strong>@zaidmukaddam</strong></a> and
+            <a href="https://github.com/SamyakJain0" className="hover:underline"> <strong>@samyakjain</strong></a>
+          </div>
           <a href="https://github.com/zaidmukaddam/greynoise-ai" className="hover:underline">
             Code on GitHub
           </a>
