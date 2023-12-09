@@ -207,7 +207,7 @@ export const functions: ChatCompletionCreateParams.Function[] = [
                 },
                 organisation: {
                     type: "string",
-                    description: "The organisation to get the data from eg. Google",
+                    description: "The organisation(companies) to get the data from eg. Google, Microsoft, Amazon, etc",
                 },
             },
             required: ["classification", "organisation"],
