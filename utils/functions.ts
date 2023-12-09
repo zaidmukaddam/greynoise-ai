@@ -306,6 +306,25 @@ export const functions: ChatCompletionCreateParams.Function[] = [
             required: ["classification", "country", "spoofable", "rdns"],
         },
     },
+    {
+        name: "get_path_with_cve",
+        description:
+            "Get the path data from greynoise.io",
+        parameters: {
+            type: "object",
+            properties: {
+                path: {
+                    type: "string",
+                    description: "The path to get the data from eg. /wp-login.php",
+                },
+                cve: {
+                    type: "string",
+                    description: "The cve to get the data from eg. CVE-2019-11510",
+                },
+            },
+            required: ["path", "cve"],
+        },
+    },
 ];
 
 async function get_ip_noise(ip: string) {
@@ -380,6 +399,12 @@ async function get_rdns_data(classification: string, rdns: string) {
     return data
 }
 
+async function get_path_with_cve(path: string, cve: string) {
+    const res = await fetch(`https://api.greynoise.io/v2/experimental/gnql?query=cve:${cve}%20raw_data.web.paths:${path}&size=5`, options)
+    const data = await res.json()
+    return data
+}
+
 export async function runFunction(name: string, args: any) {
     switch (name) {
         case "get_ip_data":
@@ -406,6 +431,8 @@ export async function runFunction(name: string, args: any) {
             return city_search_with_classification(args["classification"], args["city"]);
         case "get_rdns_data":
             return get_rdns_data(args["classification"], args["rdns"]);
+        case "get_path_with_cve":
+            return get_path_with_cve(args["path"], args["cve"]);
         default:
             return null;
     }

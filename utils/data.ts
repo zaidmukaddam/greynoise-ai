@@ -20,6 +20,7 @@ export const EXAMPLES = [
     "Search for normal activity in Delhi.",
     "Search for nginx servers showing malicious activity",
     "Show me malicious activity on Government sites.",
+    "Show me /wp-login.php for CVE-2019-11510.",
 ]
 
 export function getRandomExamples(count: number = 4) {
